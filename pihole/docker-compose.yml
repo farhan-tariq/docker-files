@@ -39,13 +39,6 @@ services:
 networks:
   pihole_ipvlan:
     external: true
-    driver: ipvlan
-    driver_opts:
-      ipvlan_mode: l3
-      parent: eno1
-    ipam:
-      config:
-        - subnet: 192.168.10.0/24
 
 volumes:
   guest_pihole_data:
