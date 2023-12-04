@@ -5,6 +5,8 @@ services:
     image: 'ghcr.io/alexjustesen/speedtest-tracker:latest'
     container_name: speedtest
     restart: unless-stopped
+    networks:
+      - common-network
     ports:
       - '8080:80'
       - '6443:443'
