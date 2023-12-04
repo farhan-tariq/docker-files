@@ -8,64 +8,47 @@ x-pihole-template: &pihole
   environment:
     TZ: ${TIME_ZONE}
     WEBPASSWORD: ${PIHOLE_PASSWORD}
-    DNS1: 192.168.10.3
+    DNS1: ${DNS_IP}
   cap_add:
     - NET_ADMIN
   restart: unless-stopped
 
 services:
-  pihole-personal:
-    <<: *pihole
-    container_name: pihole-personal
-    hostname: pihole-personal
-    networks:
-      ipvlan0:
-        ipv4_address: 192.168.10.4
-    volumes:
-      - '${PIHOLE_PERSONAL_DATA}/etc-pihole:/etc/pihole'
-      - '${PIHOLE_PERSONAL_DATA}/etc-dnsmasq.d:/etc/dnsmasq.d'
-
-  pihole-cam-iot:
-    <<: *pihole
-    container_name: pihole-cam-iot
-    hostname: pihole-cam-iot
-    networks:
-      ipvlan0:
-        ipv4_address: 192.168.10.5
-    volumes:
-      - '${PIHOLE_CAM_IOT_DATA}/etc-pihole:/etc/pihole'
-      - '${PIHOLE_CAM_IOT_DATA}/etc-dnsmasq.d:/etc/dnsmasq.d'
-
   pihole-guest:
     <<: *pihole
     container_name: pihole-guest
     hostname: pihole-guest
     networks:
-      ipvlan0:
-        ipv4_address: 192.168.10.6
+      pihole_ipvlan:
+        ipv4_address: 192.168.10.3
     volumes:
-      - '${PIHOLE_GUEST_DATA}/etc-pihole:/etc/pihole'
-      - '${PIHOLE_GUEST_DATA}/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - guest_pihole_data:/etc/pihole
+      - guest_dnsmasq_data:/etc/dnsmasq.d
 
   pihole-home:
     <<: *pihole
     container_name: pihole-home
     hostname: pihole-home
     networks:
-      ipvlan0:
-        ipv4_address: 192.168.10.7
+      pihole_ipvlan:
+        ipv4_address: 192.168.10.4
     volumes:
-      - '${PIHOLE_HOME_DATA}/etc-pihole:/etc/pihole'
-      - '${PIHOLE_HOME_DATA}/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - home_pihole_data:/etc/pihole
+      - home_dnsmasq_data:/etc/dnsmasq.d
 
 networks:
-  ipvlan0:
+  pihole_ipvlan:
     external: true
     driver: ipvlan
     driver_opts:
       ipvlan_mode: l3
       parent: eno1
-
     ipam:
       config:
         - subnet: 192.168.10.0/24
+
+volumes:
+  guest_pihole_data:
+  guest_dnsmasq_data:
+  home_pihole_data:
+  home_dnsmasq_data:

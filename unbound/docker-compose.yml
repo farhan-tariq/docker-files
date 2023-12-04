@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  unbound:
+    container_name: unbound
+    image: mvance/unbound:latest
+    networks:
+      ipvlan0:
+        ipv4_address: 192.168.10.2
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    restart: unless-stopped
+
+networks:
+  pihole_ipvlan:
+    external: true
+    driver: ipvlan
+    driver_opts:
+      ipvlan_mode: l3
+      parent: eno1
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
