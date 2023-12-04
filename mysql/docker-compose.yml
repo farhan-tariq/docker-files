@@ -16,6 +16,7 @@ services:
 #      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init-scripts/:/docker-entrypoint-initdb.d/:ro
 
 networks:
   common-network:
