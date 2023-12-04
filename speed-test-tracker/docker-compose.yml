@@ -22,13 +22,13 @@ services:
       TZ: ${TIME_ZONE}
     volumes:
         - '/etc/localtime:/etc/localtime:ro'
-        - speedtest_config:/config
-        - speedtest_web:/etc/ssl/web
+        - config:/config
+        - web:/etc/ssl/web
 
 networks:
   common-network:
     external: true
 
 volumes:
-  speedtest_config:
-  speedtest_web:
+  config:
+  web:

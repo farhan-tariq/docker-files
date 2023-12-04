@@ -22,7 +22,7 @@ services:
       pihole_ipvlan:
         ipv4_address: 192.168.10.3
     volumes:
-      - guest_pihole_data:/etc/pihole
+      - guest_data:/etc/pihole
       - guest_dnsmasq_data:/etc/dnsmasq.d
 
   pihole-home:
@@ -33,7 +33,7 @@ services:
       pihole_ipvlan:
         ipv4_address: 192.168.10.4
     volumes:
-      - home_pihole_data:/etc/pihole
+      - home_data:/etc/pihole
       - home_dnsmasq_data:/etc/dnsmasq.d
 
 networks:
@@ -41,7 +41,7 @@ networks:
     external: true
 
 volumes:
-  guest_pihole_data:
+  guest_data:
   guest_dnsmasq_data:
-  home_pihole_data:
+  home_data:
   home_dnsmasq_data:

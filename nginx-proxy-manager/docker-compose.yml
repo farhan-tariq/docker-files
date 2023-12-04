@@ -14,9 +14,9 @@ services:
       DB_MYSQL_PASSWORD: ${DB_MYSQL_PASSWORD}
       DB_MYSQL_NAME: ${DB_MYSQL_NAME}
     volumes:
-      - npm_data:/data
-      - npm_letsencrypt_data:/etc/letsencrypt
+      - data:/data
+      - letsencrypt:/etc/letsencrypt
 
 volumes:
-  npm_data:
-  npm_letsencrypt_data:
+  data:
+  letsencrypt:
