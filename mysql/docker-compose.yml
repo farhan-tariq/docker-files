@@ -15,5 +15,10 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+networks:
+  common-network:
+    name: common-network
+    driver: bridge
+
 volumes:
   mysql_data:
