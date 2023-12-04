@@ -13,4 +13,4 @@ services:
       - data:/data
 
 volumes:
-  portainer_data:
+  data:
